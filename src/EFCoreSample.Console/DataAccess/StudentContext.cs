@@ -5,11 +5,6 @@ namespace EFCoreSample.Console.DataAccess
 {
     public class StudentContext : DbContext
     {
-        public StudentContext()
-        {
-            this.Database.EnsureCreated(); // Asegurar que la base de datos exista, si no, crearla
-        }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
             optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=UniversityDb");
 
