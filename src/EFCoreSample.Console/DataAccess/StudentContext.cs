@@ -26,6 +26,19 @@ namespace EFCoreSample.Console.DataAccess
 
                 x.Property(s => s.ZipCode)
                     .HasMaxLength(8);
+
+                x.HasData(new Student()
+                {
+                    Id = 1,
+                    Address = "asdf",
+                    CreatedTimestamp = DateTime.UtcNow,
+                    DateOfBirth = new DateOnly(1999, 10, 3),
+                    Email = "asdf",
+                    FirstName = "JJ",
+                    LastName = "Simone",
+                    RegistryNumber = 1111,
+                    ZipCode = "2134"
+                });
             });
         }
     }
