@@ -10,6 +10,20 @@ namespace EFCoreSample.Console.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<State>()
+                .Property(x => x.Name)
+                .HasMaxLength(50);
+
+            modelBuilder.Entity<City>(x =>
+            {
+                x.Property(c => c.Name)
+                    .HasMaxLength(50);
+
+                x.HasOne<State>()
+                    .WithMany(s => s.Cities)
+                    .IsRequired();
+            });
+
             modelBuilder.Entity<Student>(x =>
             {
                 x.Property(s => s.Address)
