@@ -26,7 +26,11 @@ namespace EFCoreSample.Console.DataAccess
 
             modelBuilder.Entity<Student>(x =>
             {
-                x.Property(s => s.Address)
+                x.HasOne(s => s.Address)
+                    .WithOne(a => a.Student)
+                    .HasForeignKey<Address>("StudentId");
+
+                x.Property(s => s.AddressLine)
                     .HasMaxLength(200);
 
                 x.Property(s => s.Email)
@@ -44,7 +48,7 @@ namespace EFCoreSample.Console.DataAccess
                 x.HasData(new Student()
                 {
                     Id = 1,
-                    Address = "asdf",
+                    AddressLine = "asdf",
                     CreatedTimestamp = DateTime.UtcNow,
                     DateOfBirth = new DateOnly(1999, 10, 3),
                     Email = "asdf",

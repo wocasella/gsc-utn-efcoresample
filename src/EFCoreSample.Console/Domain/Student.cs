@@ -8,8 +8,9 @@
         public DateOnly DateOfBirth { get; set; }
         public int RegistryNumber { get; set; }
         public string Email { get; set; } = string.Empty;
-        public string Address { get; set; } = string.Empty;
+        public string AddressLine { get; set; } = string.Empty;
         public string ZipCode { get; set; } = string.Empty;
         public DateTime CreatedTimestamp { get; set; }
+        public Address? Address { get; set; }
     }
 }

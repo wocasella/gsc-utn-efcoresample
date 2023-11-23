@@ -4,6 +4,7 @@ using EFCoreSample.Console.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCoreSample.Console.Migrations
 {
     [DbContext(typeof(StudentContext))]
-    partial class StudentContextModelSnapshot : ModelSnapshot
+    [Migration("20231123023057_RenameAddressToAddressLine")]
+    partial class RenameAddressToAddressLine
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,29 +24,6 @@ namespace EFCoreSample.Console.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("EFCoreSample.Console.Domain.Address", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Street")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StudentId")
-                        .IsUnique();
-
-                    b.ToTable("Address");
-                });
 
             modelBuilder.Entity("EFCoreSample.Console.Domain.City", b =>
                 {
@@ -137,7 +117,7 @@ namespace EFCoreSample.Console.Migrations
                         {
                             Id = 1,
                             AddressLine = "asdf",
-                            CreatedTimestamp = new DateTime(2023, 11, 23, 3, 2, 31, 356, DateTimeKind.Utc).AddTicks(2349),
+                            CreatedTimestamp = new DateTime(2023, 11, 23, 2, 30, 57, 410, DateTimeKind.Utc).AddTicks(2301),
                             DateOfBirth = new DateOnly(1999, 10, 3),
                             Email = "asdf",
                             FirstName = "JJ",
@@ -145,17 +125,6 @@ namespace EFCoreSample.Console.Migrations
                             RegistryNumber = 1111,
                             ZipCode = "2134"
                         });
-                });
-
-            modelBuilder.Entity("EFCoreSample.Console.Domain.Address", b =>
-                {
-                    b.HasOne("EFCoreSample.Console.Domain.Student", "Student")
-                        .WithOne("Address")
-                        .HasForeignKey("EFCoreSample.Console.Domain.Address", "StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("EFCoreSample.Console.Domain.City", b =>
@@ -170,11 +139,6 @@ namespace EFCoreSample.Console.Migrations
             modelBuilder.Entity("EFCoreSample.Console.Domain.State", b =>
                 {
                     b.Navigation("Cities");
-                });
-
-            modelBuilder.Entity("EFCoreSample.Console.Domain.Student", b =>
-                {
-                    b.Navigation("Address");
                 });
 #pragma warning restore 612, 618
         }

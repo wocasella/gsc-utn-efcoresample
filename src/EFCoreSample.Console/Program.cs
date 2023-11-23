@@ -21,7 +21,7 @@ static async Task<int> Create(StudentContext context)
 {
     var student = new Student()
     {
-        Address = "742 Evergreen Terrace",
+        AddressLine = "742 Evergreen Terrace",
         DateOfBirth = new DateOnly(1995, 6, 2),
         Email = "adsfs@adsf.com",
         FirstName = "John",
