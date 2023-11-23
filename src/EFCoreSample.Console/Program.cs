@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using EFCoreSample.Console.DataAccess;
 using EFCoreSample.Console.Domain;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +28,14 @@ static async Task<int> Create(StudentContext context)
         FirstName = "John",
         LastName = "Doe",
         RegistryNumber = 12345,
-        ZipCode = "80085"
+        ZipCode = "80085",
+        CreatedTimestamp = DateTime.UtcNow
+    };
+
+    student.Address = new Address()
+    {
+        Street = "742 Evergreen Terrace",
+        Student = student
     };
 
     context.Add(student);
@@ -43,6 +51,7 @@ static async Task ReadAll(StudentContext context)
     var options = new JsonSerializerOptions()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        ReferenceHandler = ReferenceHandler.Preserve,
         WriteIndented = true
     };
 
